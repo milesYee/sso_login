@@ -1,0 +1,13 @@
+server:
+  port: 8084
+spring:
+  servlet:
+    multipart:
+      max-request-size: 200MB
+      max-file-size: 200MB
+minio:
+  host: http://192.168.0.107:9000
+  bucket: public
+  url: ${minio.host}/${minio.bucket}/
+  access-key: minioadmin
+  secret-key: minioadmin

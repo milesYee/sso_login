@@ -32,6 +32,7 @@ public class MyShiroCasRealm extends CasRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
+
         String key = appName+"_"+(String)principalCollection.getPrimaryPrincipal();
         SimpleAuthorizationInfo info = redisClient.getObject(key, SimpleAuthorizationInfo.class);
         if (ObjectUtil.isNotNull(info)) {
@@ -42,7 +43,7 @@ public class MyShiroCasRealm extends CasRealm {
         info.addRole("admin");
         //表明当前登录者的角色(真实项目中这里会去查询DB，拿到该角色的资源权限，存到redis里)
         info.addStringPermission("admin:manage");
-        info.addStringPermission("admin:query");
+        //info.addStringPermission("admin:query");
         redisClient.setObject(key, info, 120);
         return info;
     }

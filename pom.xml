@@ -11,6 +11,7 @@
 
     <modules>
         <module>member</module>
+        <module>core</module>
     </modules>
 
     <properties>
