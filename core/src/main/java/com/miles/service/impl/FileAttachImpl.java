@@ -9,14 +9,15 @@ import com.miles.service.IFileAttachService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
 
 @Service
 @Slf4j
 public class FileAttachImpl extends ServiceImpl<FileAttachMapper, FileAttach> implements IFileAttachService {
 
+    @Override
+    public List<String> listFiles(String tagName) {
+        return getBaseMapper().listFiles(tagName);
+    }
 }

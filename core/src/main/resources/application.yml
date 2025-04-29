@@ -75,7 +75,9 @@ spring:
           result-set-close-after-log-enabled: false
 logging:
   level:
-    org.springframework.jdbc.core.JdbcTemplate: DEBUG  # 开启 SQL 执行日志
+    root: debug
+    mapper: debug
+    com.chz.mapper: debug
 
 mybatis:
   # Mapper 文件的位置
@@ -85,6 +87,7 @@ mybatis:
   configuration:
     # 自动下划线转驼峰
     map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 
 minio:

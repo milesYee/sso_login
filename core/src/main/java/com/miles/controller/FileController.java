@@ -2,6 +2,7 @@ package com.miles.controller;
 
 
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.miles.config.MinioConfig;
 import com.miles.entity.FileAttach;
 import com.miles.service.IFileAttachService;
@@ -11,11 +12,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin
 @RequestMapping("/file")
-public class MinioController {
+public class FileController {
 
     @Autowired
     private MinioConfig minioConfig;
@@ -77,5 +79,11 @@ public class MinioController {
     @PostMapping("/getObjectUrl")
     public String getObjectUrl(String bucketName, String objectName) throws Exception {
         return this.minioConfig.getObjectUrl(bucketName, objectName);
+    }
+
+    @PostMapping("/listFiles")
+    public List<String> listFiles(@RequestParam("tagName") String tagName) throws Exception {
+        List<String> list = fileAttachService.listFiles(tagName);
+        return list;
     }
 }
