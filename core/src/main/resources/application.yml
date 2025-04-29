@@ -5,6 +5,88 @@ spring:
     multipart:
       max-request-size: 200MB
       max-file-size: 200MB
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.0.107:3309/file_minio?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&rewriteBatchedStatements=true
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource  # 使用 Druid 数据源
+    druid:
+      # 连接池基本配置
+      initial-size: 5  # 初始化连接数
+      min-idle: 10  # 最小空闲连接数
+      max-active: 20  # 最大连接数
+      max-wait: 6000  # 最大等待时间（毫秒）
+      time-between-eviction-runs-millis: 60000  # 多少毫秒执行一次空闲连接回收
+      min-evictable-idle-time-millis: 600000  # 连接最小生存时间（毫秒）
+      max-evictable-idle-time-millis: 1800000  # 连接最大生存时间（毫秒）
+
+      # 连接校验配置
+      validation-query: SELECT 1  # 用于测试连接是否可用的 SQL 语句
+      validation-query-timeout: 2000  # SQL 校验超时时间（毫秒）
+      test-on-borrow: false  # 获取连接时是否检测（影响性能，建议关闭）
+      test-on-return: false  # 归还连接时是否检测（影响性能，建议关闭）
+      test-while-idle: true  # 空闲时是否检测（推荐开启）
+
+      # 连接池优化配置
+      phy-max-use-count: 1000  # 每个连接的最大使用次数
+      pool-prepared-statements: false  # 是否开启 PSCache
+      max-open-prepared-statements: 50  # PSCache 允许的最大预编译 SQL 数
+
+      # Druid 监控配置
+      filters: stat,wall,slf4j  # 启用监控统计拦截的过滤器（SQL监控、防火墙、日志）
+        # 监控页面配置
+      stat-view-servlet:
+        enabled: true  # 启用内置监控页面
+        url-pattern: /druid/*  # 监控页面路径
+        login-username: admin  # 访问监控页面的用户名
+        login-password: admin  # 访问监控页面的密码
+        reset-enable: false  # 是否允许重置统计数据
+        allow: 127.0.0.1  # 允许访问的 IP 白名单
+        deny: 192.168.0.1  # 禁止访问的 IP 黑名单
+
+      # Web 监控配置
+      web-stat-filter:
+        enabled: true  # 开启 Web-JDBC 关联监控
+        url-pattern: /*  # 监控所有请求
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"  # 排除静态资源和监控路径
+        session-stat-enable: true  # 启用 Session 统计
+        session-stat-max-count: 1000  # Session 最大数量
+
+      # SQL 慢查询日志配置
+      filter:
+        stat:
+          # 是否开启 FilterStat，默认true
+          enabled: true
+          # 是否开启 慢SQL 记录，默认false
+          log-slow-sql: true
+          # 慢 SQL 的标准，默认 3000，单位：毫秒
+          slow-sql-millis: 5000
+          # 合并多个连接池的监控数据，默认false
+          merge-sql: false
+
+        # 日志配置，采用 SLF4J
+        slf4j:
+          enabled: true  # 启用日志
+          statement-log-error-enabled: true  # 开启 SQL 语句错误日志
+          statement-create-after-log-enabled: false
+          statement-close-after-log-enabled: false
+          result-set-open-after-log-enabled: false
+          result-set-close-after-log-enabled: false
+logging:
+  level:
+    org.springframework.jdbc.core.JdbcTemplate: DEBUG  # 开启 SQL 执行日志
+
+mybatis:
+  # Mapper 文件的位置
+  mapper-locations: classpath:mapper/*Mapper.xml
+  # 实体类的包路径
+  type-aliases-package: com.miles.entity
+  configuration:
+    # 自动下划线转驼峰
+    map-underscore-to-camel-case: true
+
+
 minio:
   host: http://192.168.0.107:9000
   bucket: public

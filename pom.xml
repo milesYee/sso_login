@@ -12,6 +12,7 @@
     <modules>
         <module>member</module>
         <module>core</module>
+        <module>order</module>
     </modules>
 
     <properties>
