@@ -1,0 +1,17 @@
+version: '3'
+services:
+  sso-login-core:
+    image: sso-login-core:latest
+    restart: always
+    ports:
+      - "8084:8084"
+  sso-login-member:
+    image: sso-login-member:latest
+    restart: always
+    ports:
+      - "8085:8085"
+  sso-login-order:
+    image: sso-login-order:latest
+    restart: always
+    ports:
+      - "8086:8086"

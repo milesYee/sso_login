@@ -88,6 +88,8 @@ mybatis:
     # 自动下划线转驼峰
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    cache-enabled: true
+    local-cache-scope: statement
 
 
 minio:
