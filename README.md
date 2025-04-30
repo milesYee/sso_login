@@ -7,3 +7,8 @@ attachment/cas-overlay-template-5.3.zip
 4.创建并配置application.properties
 5.启动服务端
 6.启动客户端
+
+# docker
+1.本地docker环境准备
+2.docker pull openjdk：8-jdk-alpine 准备基础环境
+3.docker built -t <子服务名> .   创建各子服务镜像
